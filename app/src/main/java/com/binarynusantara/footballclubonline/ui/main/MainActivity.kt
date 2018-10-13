@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import com.binarynusantara.footballclubonline.R
 import com.binarynusantara.footballclubonline.R.color.colorPrimary
+import com.binarynusantara.footballclubonline.ui.favorites.FavoritesMatchFragment
 import com.binarynusantara.footballclubonline.ui.lastmatch.LastMatchFragment
 import com.binarynusantara.footballclubonline.ui.nextmatch.NextMatchFragment
 import org.jetbrains.anko.*
@@ -37,6 +38,13 @@ class MainActivity : AppCompatActivity() {
                     val lastFragment = LastMatchFragment.lastMatchInstance()
                     addFragment(lastFragment)
                     toolbar.title = getString(R.string.app_name) + " : Last Match"
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.nav_favorites -> {
+
+                    val favFragment = FavoritesMatchFragment.favoriteMatchInstance()
+                    addFragment(favFragment)
+                    toolbar.title = getString(R.string.app_name) + " : Favorites"
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_next_match -> {
