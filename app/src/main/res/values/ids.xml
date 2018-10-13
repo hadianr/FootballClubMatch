@@ -10,7 +10,9 @@
     <item name="rvNextMatch" type="id" />
     <item name="progressBarNextMatch" type="id" />
     <item name="rvLastMatch" type="id" />
+    <item name="rvFavorites" type="id" />
     <item name="progressBarLastMatch" type="id" />
+    <item name="progressBarFavMatch" type="id" />
     <item name="text_schedule" type="id" />
     <item name="text_hometeam" type="id" />
     <item name="text_homescore" type="id" />

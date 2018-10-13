@@ -10,6 +10,13 @@
         app:showAsAction="ifRoom"/>
 
     <item
+        android:id="@+id/nav_favorites"
+        android:enabled="true"
+        android:icon="@drawable/ic_favorite_white_24dp"
+        android:title="@string/fav"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/nav_next_match"
         android:enabled="true"
         android:icon="@drawable/ic_event_white_24dp"

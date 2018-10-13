@@ -1,6 +1,7 @@
 package com.binarynusantara.footballclubonline.ui.detailmatch
 
 import android.annotation.SuppressLint
+import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -10,6 +11,8 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -18,12 +21,19 @@ import android.widget.TextView
 import com.binarynusantara.footballclubonline.R
 import com.binarynusantara.footballclubonline.R.color.colorAccent
 import com.binarynusantara.footballclubonline.R.color.colorPrimary
+import com.binarynusantara.footballclubonline.data.db.Favorites
 import com.binarynusantara.footballclubonline.data.network.ApiRepository
 import com.binarynusantara.footballclubonline.data.model.Schedule
 import com.binarynusantara.footballclubonline.data.model.Teams
+import com.binarynusantara.footballclubonline.utils.db
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.delete
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.select
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 import java.text.SimpleDateFormat
@@ -66,6 +76,8 @@ class DetailActivity: AppCompatActivity(), DetailView {
 
     private var itemHomeId: String? = null
     private var itemAwayId: String? = null
+    private var favMenu: Menu? = null
+    private var isFavorites: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -479,6 +491,7 @@ class DetailActivity: AppCompatActivity(), DetailView {
 
     private fun getEventDetail() {
 
+        favoriteState()
         presenter = DetailPresenter(this, ApiRepository(), Gson())
         presenter.getScheduleDetail(idEventDetail, itemHomeId, itemAwayId)
 
@@ -514,5 +527,77 @@ class DetailActivity: AppCompatActivity(), DetailView {
 
         bindView()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.fav, menu)
+        favMenu = menu
+        checkFavorites()
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when(item?.itemId){
+            R.id.add_to_favorite -> {
+                if (isFavorites) removeFavorite() else addToFavorite()
+                isFavorites = !isFavorites
+                checkFavorites()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
+    private fun checkFavorites(){
+        if (isFavorites)
+            favMenu?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_star_white_24dp)
+        else
+            favMenu?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_star_border_white_24dp)
+    }
+
+    private fun favoriteState(){
+        db.use {
+            val query = select(Favorites.TABLE_FAVORITE).whereArgs("EVENT_ID = {id}", "id" to idEventDetail)
+            val result = query.parseList(classParser<Favorites>())
+            if (!result.isEmpty()) isFavorites = true
+        }
+    }
+
+    private fun addToFavorite() {
+        try {
+            db.use {
+                insert(Favorites.TABLE_FAVORITE, Favorites.EVENT_ID to  scheduleDetail.idEvent,
+                        Favorites.EVENT_DATE to scheduleDetail.eventDate,
+                        Favorites.HOME_TEAM to scheduleDetail.eventHomeTeam,
+                        Favorites.HOME_SCORE to scheduleDetail.eventHomeScore,
+                        Favorites.AWAY_TEAM to scheduleDetail.eventAwayTeam,
+                        Favorites.AWAY_SCORE to scheduleDetail.eventAwayScore,
+                        Favorites.HOME_TEAM_ID to itemHomeId,
+                        Favorites.AWAY_TEAM_ID to itemAwayId)
+            }
+            snackbar(swipeRefresh, "Added to Favorite").show()
+        } catch (e: SQLiteConstraintException) {
+            snackbar(swipeRefresh, e.localizedMessage).show()
+        }
+
+    }
+
+    private fun removeFavorite() {
+        try {
+            db.use {
+                delete(Favorites.TABLE_FAVORITE, "(EVENT_ID = {id})",
+                        "id" to idEventDetail)
+            }
+            snackbar(swipeRefresh, "Removed to Favorite").show()
+        } catch (e: SQLiteConstraintException) {
+            snackbar(swipeRefresh, e.localizedMessage).show()
+
+        }
+    }
+
+
+
+
 
 }
