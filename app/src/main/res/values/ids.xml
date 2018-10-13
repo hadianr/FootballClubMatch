@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="team_names" type="id" />
+    <item name="team_name" type="id" />
+    <item name="container" type="id" />
+    <item name="bottom_layout" type="id" />
+    <item name="navigation" type="id" />
+    <item name="frame" type="id" />
+    <item name="swipeRefresh" type="id" />
+    <item name="rvNextMatch" type="id" />
+    <item name="progressBarNextMatch" type="id" />
+    <item name="rvLastMatch" type="id" />
+    <item name="progressBarLastMatch" type="id" />
+    <item name="text_schedule" type="id" />
+    <item name="text_hometeam" type="id" />
+    <item name="text_homescore" type="id" />
+    <item name="text_versus" type="id" />
+    <item name="textawayscore" type="id" />
+    <item name="text_awayteam" type="id" />
+    <item name="lyEventDetail" type="id" />
+    <item name="progressBarDetailEvent" type="id" />
+
+</resources>
