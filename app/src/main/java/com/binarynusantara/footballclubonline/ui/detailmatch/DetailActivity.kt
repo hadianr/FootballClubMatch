@@ -500,7 +500,7 @@ class DetailActivity: AppCompatActivity(), DetailView {
         }
     }
 
-    private fun setPlayerTeam(playerName: String?): String? {
+    fun setPlayerTeam(playerName: String?): String? {
 
         return playerName?.split(";".toRegex())?.dropLastWhile {
             it.isEmpty()

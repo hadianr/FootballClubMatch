@@ -33,6 +33,3 @@ data class MyDatabaseOpenHelper(val ctx: Context) : ManagedSQLiteOpenHelper(ctx,
         db?.dropTable(Favorites.TABLE_FAVORITE, true)
     }
 }
-
-val Context.database: MyDatabaseOpenHelper
-get() = MyDatabaseOpenHelper.getInstance(applicationContext)
