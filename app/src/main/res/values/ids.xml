@@ -19,7 +19,7 @@
     <item name="text_versus" type="id" />
     <item name="textawayscore" type="id" />
     <item name="text_awayteam" type="id" />
-    <item name="lyEventDetail" type="id" />
+    <item name="llDetailMatch" type="id" />
     <item name="progressBarDetailEvent" type="id" />
 
 </resources>

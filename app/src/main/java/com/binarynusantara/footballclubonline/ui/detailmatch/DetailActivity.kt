@@ -43,7 +43,7 @@ class DetailActivity: AppCompatActivity(), DetailView {
 
 
     private lateinit var scheduleDetail: Schedule
-    private lateinit var lyEventDetail: LinearLayout
+    private lateinit var llDetailMatch: LinearLayout
     private lateinit var progressBar: ProgressBar
     private lateinit var presenter: DetailPresenter
     private lateinit var swipeRefresh: SwipeRefreshLayout
@@ -109,8 +109,8 @@ class DetailActivity: AppCompatActivity(), DetailView {
                 lparams(width = matchParent, height = matchParent)
                 relativeLayout {
                     lparams(width = matchParent, height = matchParent)
-                    lyEventDetail = linearLayout {
-                        id = R.id.lyEventDetail
+                    llDetailMatch = linearLayout {
+                        id = R.id.llDetailMatch
                         lparams(width = matchParent, height = matchParent)
                         orientation = LinearLayout.VERTICAL
                         gravity = Gravity.CENTER
@@ -492,7 +492,7 @@ class DetailActivity: AppCompatActivity(), DetailView {
     private fun getEventDetail() {
 
         favoriteState()
-        presenter = DetailPresenter(this, ApiRepository(), Gson())
+        presenter = DetailPresenter(view = this, apiRequest = ApiRepository(), gson = Gson())
         presenter.getScheduleDetail(idEventDetail, itemHomeId, itemAwayId)
 
         swipeRefresh.onRefresh {
@@ -500,7 +500,7 @@ class DetailActivity: AppCompatActivity(), DetailView {
         }
     }
 
-    fun setPlayerTeam(playerName: String?): String? {
+    private fun setPlayerTeam(playerName: String?): String? {
 
         return playerName?.split(";".toRegex())?.dropLastWhile {
             it.isEmpty()
@@ -511,13 +511,13 @@ class DetailActivity: AppCompatActivity(), DetailView {
     override fun hideLoading() {
         progressBar.visibility = View.INVISIBLE
 
-        lyEventDetail.visibility = View.VISIBLE
+        llDetailMatch.visibility = View.VISIBLE
     }
 
     override fun showLoading() {
 
         progressBar.visibility = View.VISIBLE
-        lyEventDetail.visibility = View.INVISIBLE
+        llDetailMatch.visibility = View.INVISIBLE
     }
 
     override fun showEventList(data: List<Schedule>, home: List<Teams>, away: List<Teams>) {
@@ -567,7 +567,8 @@ class DetailActivity: AppCompatActivity(), DetailView {
     private fun addToFavorite() {
         try {
             db.use {
-                insert(Favorites.TABLE_FAVORITE, Favorites.EVENT_ID to  scheduleDetail.idEvent,
+                insert(Favorites.TABLE_FAVORITE,
+                        Favorites.EVENT_ID to  scheduleDetail.idEvent,
                         Favorites.EVENT_DATE to scheduleDetail.eventDate,
                         Favorites.HOME_TEAM to scheduleDetail.eventHomeTeam,
                         Favorites.HOME_SCORE to scheduleDetail.eventHomeScore,

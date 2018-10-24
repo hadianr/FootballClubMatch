@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
+import android.widget.FrameLayout
 import com.binarynusantara.footballclubonline.R
 import com.binarynusantara.footballclubonline.R.color.colorPrimary
 import com.binarynusantara.footballclubonline.ui.favorites.FavoritesMatchFragment
@@ -18,6 +19,7 @@ import org.jetbrains.anko.design.bottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     lateinit var toolbar: ActionBar
+    private lateinit var mFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,16 +27,16 @@ class MainActivity : AppCompatActivity() {
         toolbar = supportActionBar as ActionBar
         toolbar.title = getString(R.string.app_name) + " : Last Match"
 
-        MainActivityUI().setContentView(this)
-
-
+        MainActivityUI().apply {
+            setContentView(this@MainActivity)
+        }
 
 
         val bottomNavigationView: BottomNavigationView = find(R.id.navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId){
 
-                R.id.nav_prev_match -> {
+                R.id.nav_last_match -> {
                     val lastFragment = LastMatchFragment.lastMatchInstance()
                     addFragment(lastFragment)
                     toolbar.title = getString(R.string.app_name) + " : Last Match"
@@ -66,6 +68,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     class MainActivityUI : AnkoComponent<MainActivity>{
+        private lateinit var mFrameLayout: FrameLayout
+
         @SuppressLint("API")
         override fun createView(ui: AnkoContext<MainActivity>) = with(ui) {
             verticalLayout{
@@ -74,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                     margin = dip(0)
                 }
 
-                frameLayout {
+                mFrameLayout = frameLayout {
                     id = R.id.container
                 }.lparams(width = matchParent, height = matchParent, weight = 1F)
 
@@ -93,9 +97,11 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+
     }
 
     private fun addFragment(fragment: Fragment) {
+        mFragment = fragment
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
