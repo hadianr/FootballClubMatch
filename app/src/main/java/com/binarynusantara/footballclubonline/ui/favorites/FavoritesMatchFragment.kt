@@ -61,7 +61,7 @@ class FavoritesMatchFragment: Fragment(), AnkoComponent<Context>{
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return createView(AnkoContext.create(ctx))
+        return createView(AnkoContext.create(this.ctx))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -95,7 +95,7 @@ class FavoritesMatchFragment: Fragment(), AnkoComponent<Context>{
     }
 
     companion object {
-        fun favoriteMatchInstance(): FavoritesMatchFragment = FavoritesMatchFragment()
+        fun favoriteMatchInstance() = FavoritesMatchFragment()
     }
 
 }
