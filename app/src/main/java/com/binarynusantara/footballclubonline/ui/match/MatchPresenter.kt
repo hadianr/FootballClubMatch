@@ -1,24 +1,25 @@
-package com.binarynusantara.footballclubonline.ui.nextmatch
+package com.binarynusantara.footballclubonline.ui.match
 
 import com.binarynusantara.footballclubonline.data.model.ScheduleResponse
 import com.binarynusantara.footballclubonline.data.network.ApiRepository
 import com.binarynusantara.footballclubonline.data.network.TheSportDBApi
+import com.binarynusantara.footballclubonline.ui.match.nextmatch.NextMatchView
 import com.binarynusantara.footballclubonline.utils.CoroutineContextProvider
 import com.google.gson.Gson
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.coroutines.experimental.bg
 
-class NextMatchPresenter(private val view: NextMatchView,
-                         private val apiRequest: ApiRepository,
-                         private val gson: Gson,
-                         private val context: CoroutineContextProvider = CoroutineContextProvider()) {
+class MatchPresenter(private val view: MatchView,
+                     private val apiRequest: ApiRepository,
+                     private val gson: Gson,
+                     private val context: CoroutineContextProvider = CoroutineContextProvider()){
 
-    fun getScheduleList(match: String?) {
+    fun getScheduleList(match: String?, leagueId: Int?) {
         view.showLoading()
 
         async(context.main) {
             val data = bg {
-                gson.fromJson(apiRequest.doRequest(TheSportDBApi.getSchedule(match)),
+                gson.fromJson(apiRequest.doRequest(TheSportDBApi.getSchedule(match, leagueId)),
                         ScheduleResponse::class.java
                 )
             }

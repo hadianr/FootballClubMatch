@@ -27,8 +27,8 @@ class MainActivityTest{
     @Test
     fun testAppBehaviour(){
         Espresso.onView(ViewMatchers.withId(container)).check(ViewAssertions.matches(isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(nav_last_match)).check(ViewAssertions.matches(isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(nav_next_match)).check(ViewAssertions.matches(isDisplayed()))
+//        Espresso.onView(ViewMatchers.withId(nav_last_match)).check(ViewAssertions.matches(isDisplayed()))
+//        Espresso.onView(ViewMatchers.withId(nav_next_match)).check(ViewAssertions.matches(isDisplayed()))
 
         Thread.sleep(wait)
         Espresso.onView(ViewMatchers.withId(rvLastMatch)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -47,7 +47,7 @@ class MainActivityTest{
 
         Thread.sleep(wait)
         Espresso.onView(ViewMatchers.withId(navigation)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(nav_next_match)).perform(ViewActions.click())
+//        Espresso.onView(ViewMatchers.withId(nav_next_match)).perform(ViewActions.click())
 
         Thread.sleep(wait)
         Espresso.onView(ViewMatchers.withId(rvNextMatch)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))

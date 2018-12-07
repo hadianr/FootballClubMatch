@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import com.binarynusantara.footballclubonline.R
 import com.binarynusantara.footballclubonline.data.db.Favorites
-import com.binarynusantara.footballclubonline.ui.detailmatch.DetailActivity
+import com.binarynusantara.footballclubonline.ui.match.detailmatch.DetailMatchActivity
 import com.binarynusantara.footballclubonline.ui.favorites.adapter.FavoritesAdapter
 import com.binarynusantara.footballclubonline.utils.db
 import org.jetbrains.anko.*
@@ -30,6 +30,9 @@ class FavoritesMatchFragment: Fragment(), AnkoComponent<Context>{
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var adapter: FavoritesAdapter
+
+
+
 
     override fun createView(ui: AnkoContext<Context>): View = with(ui) {
         relativeLayout {
@@ -68,7 +71,7 @@ class FavoritesMatchFragment: Fragment(), AnkoComponent<Context>{
         super.onActivityCreated(savedInstanceState)
 
         adapter = FavoritesAdapter(favorites){
-            ctx.startActivity<DetailActivity>(
+            ctx.startActivity<DetailMatchActivity>(
                     "item_eventdetail_id" to "${it.eventId}",
                     "item_home_id" to "${it.homeTeamId}",
                     "item_away_id" to "${it.awayTeamId}"

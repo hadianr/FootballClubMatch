@@ -12,8 +12,9 @@ import android.widget.FrameLayout
 import com.binarynusantara.footballclubonline.R
 import com.binarynusantara.footballclubonline.R.color.colorPrimary
 import com.binarynusantara.footballclubonline.ui.favorites.FavoritesMatchFragment
-import com.binarynusantara.footballclubonline.ui.lastmatch.LastMatchFragment
-import com.binarynusantara.footballclubonline.ui.nextmatch.NextMatchFragment
+import com.binarynusantara.footballclubonline.ui.match.MatchFragment
+import com.binarynusantara.footballclubonline.ui.match.nextmatch.NextMatchFragment
+import com.binarynusantara.footballclubonline.ui.teams.TeamsFragment
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.bottomNavigationView
 
@@ -24,8 +25,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        toolbar = supportActionBar as ActionBar
-        toolbar.title = getString(R.string.app_name) + " : Last Match"
 
         MainActivityUI().apply {
             setContentView(this@MainActivity)
@@ -36,23 +35,20 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId){
 
-                R.id.nav_last_match -> {
-                    val lastFragment = LastMatchFragment.lastMatchInstance()
-                    addFragment(lastFragment)
-                    toolbar.title = getString(R.string.app_name) + " : Last Match"
+                R.id.nav_match -> {
+                    val matchFragment = MatchFragment.matchInstance()
+                    addFragment(matchFragment)
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_favorites -> {
 
                     val favFragment = FavoritesMatchFragment.favoriteMatchInstance()
                     addFragment(favFragment)
-                    toolbar.title = getString(R.string.app_name) + " : Favorites"
                     return@setOnNavigationItemSelectedListener true
                 }
-                R.id.nav_next_match -> {
-                    val nextFragment = NextMatchFragment.nextMatchInstance()
-                    addFragment(nextFragment)
-                    toolbar.title = getString(R.string.app_name) + " : Next Match"
+                R.id.nav_teams -> {
+                    val teamsFragment = TeamsFragment.teamsInstance()
+                    addFragment(teamsFragment)
 
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -63,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
 
         if(savedInstanceState == null) {
-            addFragment(LastMatchFragment.lastMatchInstance())
+            addFragment(MatchFragment.matchInstance())
         }
     }
 

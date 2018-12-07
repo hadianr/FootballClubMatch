@@ -1,9 +1,9 @@
-package com.binarynusantara.footballclubonline.ui.detailmatch
+package com.binarynusantara.footballclubonline.ui.match.detailmatch
 
 import com.binarynusantara.footballclubonline.data.model.Schedule
 import com.binarynusantara.footballclubonline.data.model.Teams
 
-interface DetailView{
+interface DetailMatchView{
 
     fun hideLoading()
     fun showLoading()

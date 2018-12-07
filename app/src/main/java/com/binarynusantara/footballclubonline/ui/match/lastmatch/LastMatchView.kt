@@ -1,8 +1,8 @@
-package com.binarynusantara.footballclubonline.ui.nextmatch
+package com.binarynusantara.footballclubonline.ui.match.lastmatch
 
 import com.binarynusantara.footballclubonline.data.model.Schedule
 
-interface NextMatchView{
+interface LastMatchView{
     fun showLoading()
     fun hideLoading()
     fun showEventList(data: List<Schedule>?)

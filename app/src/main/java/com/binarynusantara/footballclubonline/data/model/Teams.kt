@@ -8,5 +8,12 @@ data class Teams(
         @SerializedName("strTeam")
         var teamName: String?,
         @SerializedName("strTeamBadge")
-        var teamBadge: String?
+        var teamBadge: String?,
+        @SerializedName("strDescriptionEN")
+        var teamDescriptionEN: String?,
+        @SerializedName("intFormedYear")
+        var teamFormedYear: String?,
+        @SerializedName("strStadium")
+        var teamStadium: String?
+
 )

@@ -4,6 +4,8 @@ import com.binarynusantara.footballclubonline.data.model.Schedule
 import com.binarynusantara.footballclubonline.data.model.ScheduleResponse
 import com.binarynusantara.footballclubonline.data.network.ApiRepository
 import com.binarynusantara.footballclubonline.data.network.TheSportDBApi
+import com.binarynusantara.footballclubonline.ui.match.nextmatch.NextMatchPresenter
+import com.binarynusantara.footballclubonline.ui.match.nextmatch.NextMatchView
 import com.google.gson.Gson
 import org.junit.Test
 
@@ -33,7 +35,7 @@ class NextMatchPresenterTest {
     @Before
     fun setUp(){
         MockitoAnnotations.initMocks(this)
-        presenter = NextMatchPresenter(view,apiRepository,gson, TestContextProvider())
+        presenter = NextMatchPresenter(view, apiRepository, gson, TestContextProvider())
     }
 
     @Test
@@ -41,13 +43,14 @@ class NextMatchPresenterTest {
         val schedules: MutableList<Schedule> = mutableListOf()
         val response = ScheduleResponse(schedules)
         val match = "eventsnextleague"
+        val leagueId = 4328
 
         `when` (gson.fromJson(apiRepository
-                .doRequest(TheSportDBApi.getSchedule(match)),
+                .doRequest(TheSportDBApi.getSchedule(match, leagueId)),
                 ScheduleResponse::class.java
         )).thenReturn(response)
 
-        presenter.getScheduleList(match)
+        presenter.getScheduleList(match,leagueId)
 
         verify(view).showLoading()
         verify(view).showEventList(schedules)

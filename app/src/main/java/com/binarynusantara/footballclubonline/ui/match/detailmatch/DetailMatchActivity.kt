@@ -1,4 +1,4 @@
-package com.binarynusantara.footballclubonline.ui.detailmatch
+package com.binarynusantara.footballclubonline.ui.match.detailmatch
 
 import android.annotation.SuppressLint
 import android.database.sqlite.SQLiteConstraintException
@@ -39,13 +39,13 @@ import org.jetbrains.anko.support.v4.swipeRefreshLayout
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DetailActivity: AppCompatActivity(), DetailView {
+class DetailMatchActivity: AppCompatActivity(), DetailMatchView {
 
 
     private lateinit var scheduleDetail: Schedule
     private lateinit var llDetailMatch: LinearLayout
     private lateinit var progressBar: ProgressBar
-    private lateinit var presenter: DetailPresenter
+    private lateinit var presenter: DetailMatchPresenter
     private lateinit var swipeRefresh: SwipeRefreshLayout
 
     private lateinit var badgeHome: Teams
@@ -83,8 +83,8 @@ class DetailActivity: AppCompatActivity(), DetailView {
         super.onCreate(savedInstanceState)
 
 
-        toolbar = supportActionBar as ActionBar
-        toolbar.title = getString(R.string.app_name) + " : Detail Match"
+//        toolbar = supportActionBar as ActionBar
+//        toolbar.title = getString(R.string.app_name) + " : Detail Match"
 
         if (intent.extras != null) {
             idEventDetail = intent.getStringExtra("item_eventdetail_id")
@@ -492,7 +492,7 @@ class DetailActivity: AppCompatActivity(), DetailView {
     private fun getEventDetail() {
 
         favoriteState()
-        presenter = DetailPresenter(view = this, apiRequest = ApiRepository(), gson = Gson())
+        presenter = DetailMatchPresenter(view = this, apiRequest = ApiRepository(), gson = Gson())
         presenter.getScheduleDetail(idEventDetail, itemHomeId, itemAwayId)
 
         swipeRefresh.onRefresh {

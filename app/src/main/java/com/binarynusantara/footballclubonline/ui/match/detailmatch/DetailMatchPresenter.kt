@@ -1,4 +1,4 @@
-package com.binarynusantara.footballclubonline.ui.detailmatch
+package com.binarynusantara.footballclubonline.ui.match.detailmatch
 
 import com.binarynusantara.footballclubonline.data.model.ScheduleResponse
 import com.binarynusantara.footballclubonline.data.model.TeamsResponse
@@ -9,10 +9,10 @@ import com.google.gson.Gson
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.coroutines.experimental.bg
 
-class DetailPresenter(private val view: DetailView,
-                      private val apiRequest: ApiRepository,
-                      private val gson: Gson,
-                      private val context: CoroutineContextProvider = CoroutineContextProvider()){
+class DetailMatchPresenter(private val view: DetailMatchView,
+                           private val apiRequest: ApiRepository,
+                           private val gson: Gson,
+                           private val context: CoroutineContextProvider = CoroutineContextProvider()){
 
     fun getScheduleDetail(idEvent: String?, idHomeTeam: String?, idAwayTeam: String?){
         view.showLoading()

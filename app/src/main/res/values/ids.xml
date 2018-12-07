@@ -11,6 +11,8 @@
     <item name="progressBarNextMatch" type="id" />
     <item name="rvLastMatch" type="id" />
     <item name="rvFavorites" type="id" />
+    <item name="rvTeams" type="id" />
+    <item name="rvPlayers" type="id" />
     <item name="progressBarLastMatch" type="id" />
     <item name="progressBarFavMatch" type="id" />
     <item name="text_schedule" type="id" />
@@ -21,5 +23,13 @@
     <item name="text_awayteam" type="id" />
     <item name="llDetailMatch" type="id" />
     <item name="progressBarDetailEvent" type="id" />
+    <item name="progressBarTeams" type="id" />
+    <item name="progressBarPlayers" type="id" />
+    <item name="team_badge" type="id" />
+    <item name="toolbar_team" type="id" />
+    <item name="toolbar_players" type="id" />
+    <item name="imgPlayersAva" type="id" />
+    <item name="tvPlayersName" type="id" />
+    <item name="tvPlayersPosition" type="id" />
 
 </resources>

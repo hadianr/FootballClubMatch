@@ -11,5 +11,5 @@ val Context.db: MyDatabaseOpenHelper
 
 @SuppressLint("SimpleDateFormat")
 fun dateFormatToString(date: Date?) : String? = with(date ?: Date()){
-    SimpleDateFormat("EEE, dd MMM yyy").format(this)
+    SimpleDateFormat("EEE, d MMM yyy").format(this)
 }
